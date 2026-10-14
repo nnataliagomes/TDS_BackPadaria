@@ -28,6 +28,7 @@ namespace BackPadaria
                         string? version = command.ExecuteScalar()?.ToString();
                         Console.WriteLine($"Versao do MariaDB {version}");
 
+                        // teste
                     }
 
 
