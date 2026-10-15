@@ -3,41 +3,84 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySqlConnector;
 
 namespace BackPadaria.Model
 {
-           internal class Cliente
+    internal class Cliente
+    {
+        private int id;
+        private string nome;
+        private string cpf;
+        private string telefone;
+        private string endereco;
+        private int pontos;
+
+        public Cliente(string nome, string cpf, string telefone, string endereco, int pontos)
         {
-            private int id;
-            private string nome;
-            private string cpf;
-            private string telefone;
-            private string endereco;
-            private int pontos;
+            if (nome == "") throw new Exception("O nome do cliente não pode ser vazio");
 
-            public Cliente(string nome, string cpf, string telefone, string endereco, int pontos)
+            this.Nome = nome;
+            this.Cpf = cpf;
+            this.Telefone = telefone;
+            this.Endereco = endereco;
+            this.Pontos = pontos;
+        }
+
+        public Cliente(int id, string nome, string cpf, string telefone, string endereco, int pontos)
+        {
+            this.Id = id;
+            this.Nome = nome;
+            this.Cpf = cpf;
+            this.Telefone = telefone;
+            this.Endereco = endereco;
+            this.Pontos = pontos;
+        }
+
+        public int Id { get => id; set => id = value; }
+        public string Nome { get => nome; set => nome = value; }
+        public string Cpf { get => cpf; set => cpf = value; }
+        public string Telefone { get => telefone; set => telefone = value; }
+        public string Endereco { get => endereco; set => endereco = value; }
+        public int Pontos { get => pontos; set => pontos = value; }
+
+        public void AdicionarPontos(int pontos)
+        {
+            this.Pontos++;
+
+        }
+
+        public static int inserir(Cliente cliente)
+        {
+
+
+
+            // Instrução SQL: Define o comando de inserção (INSERT).
+            // 0 uso de marcações com '@' (ex: @Nome) é uma pratica de segurança crucial chamada de "Parametrização".
+            // Ela impede ataques de SQL Injection, pois o banco entende o que e comando e o que e apenas texto do usuario.
+
+            string sql = "insert into `Cliente` (`Nome`, `CPF`, `Telefone`, `Endereco`, `Pontos`)" +
+            "VALUES (@Nome, @CPF, @Telefone, @Endereco, @Pontos)";
+
+
+            // Gerenciamento de recursos: Cria o objeto de comando já passando a instrução SQL.
+            // O 'using' garante que os recursos de memoria ocupados pelo comando sejam liberados ao final do bloco.
+
+            using (var cmd = new MySqlCommand(sql))
             {
-                this.nome = nome;
-                this.cpf = cpf;
-                this.telefone = telefone;
-                this.endereco = endereco;
-                this.pontos = pontos;
-            }
+                cmd.Parameters.AddWithValue("@Nome", cliente.Nome);
+                cmd.Parameters.AddWithValue("@CPF", cliente.Cpf);
+                cmd.Parameters.AddWithValue("@Telefone", cliente.Telefone);
+                cmd.Parameters.AddWithValue("@Endereco", cliente.Endereco);
+                cmd.Parameters.AddWithValue("@Pontos", cliente.Pontos);
 
-            public Cliente(int id, string nome, string cpf, string telefone, string endereco, int pontos)
-            {
-                this.id = id;
-                this.nome = nome;
-                this.cpf = cpf;
-                this.telefone = telefone;
-                this.endereco = endereco;
-                this.pontos = pontos;
-            }
 
-            public void AdicionarPontos(int pontos)
-            {
-                this.pontos++;
+                // Execucao: Como o comando de INSERT nao retorna tabelas (apenas executa uma ação),
+                // ele envia o comando configurado para o método genérico 'executarComando' da classe 'Banco'.
+                // 0 método retorna 1 (se o usuário for inserido com sucesso) ou -1 (se houver erro no banco).
 
+                return Banco.executarComando(cmd);
             }
         }
     }
+}

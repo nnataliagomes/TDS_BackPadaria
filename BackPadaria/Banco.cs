@@ -17,7 +17,7 @@ namespace BackPadaria
             {
                 try
                 {
-                    Console.WriteLine("Tentando conecta ao banco de dados");
+                    Console.WriteLine("Tentando conectar ao banco de dados");
 
                     connection.Open();
 
@@ -40,6 +40,46 @@ namespace BackPadaria
                 }
             }
         }
-    }
 
-}
+        
+        //decalração do método: púclico e estático, reotrna um número inteiro (linhas afetadas)
+        // e recebe um objeto MySqlCommand com a instrução SQL já conigurada em parâmetro.
+        
+        public static int executarComando(MySqlCommand command)
+        {
+
+
+            /* O bloco 'using' garante que a conexão será automaticamente fechada e liberada
+            da memória ao final do bloco, mesmo que aocorram erros no meio do processo
+
+            cria a conexão utilizando a varáivel de ambiente */
+
+            using (var conexao = new MySqlConnection(stringDeConexao))
+            {
+                // vinculação: diz ao comando sql em qual conexão ele deve ser executado
+                command.Connection = conexao;
+
+
+                // tratamento de erros: Inicia um bloco de tentativa para proteger o programa de falhas abruptas.
+                try
+                {
+                    // Abertura da conexão: Estabelece efetivamente a comunicação com o servidor Mysql
+                    conexao.Open();
+
+
+
+                    /* Execução: o ExecuteNonQuery dispara comandos de ação (INSERT, UPDATE, DELETE).
+                     * Ele não retorna registros, mas sim o número inteiro de linhas que foram alteradas, e o 
+                     * return devolve esse número para quem chamou o método. */
+                    return command.ExecuteNonQuery();
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine($"Erro de Banco de Dados {ex.Message}");
+
+                    return -1;
+                }    
+            }
+        }
+    }
+}       
