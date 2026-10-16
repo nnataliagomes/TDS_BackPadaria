@@ -113,10 +113,11 @@ internal class Banco
 
                     retorno = int.Parse(objRetorno.ToString());
 
-                    return retorno;
+                  
                 }
+                return retorno;
 
-                
+
             }
 
             catch (MySqlException ex)

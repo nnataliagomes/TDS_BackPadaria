@@ -6,7 +6,7 @@ namespace BackPadaria
     {
         static void Main(string[] args)
         {
-
+            /*
             Console.WriteLine("Digite o nome do cliente: ");
             string nomeCliente = Console.ReadLine();
 
@@ -33,7 +33,27 @@ namespace BackPadaria
             Cliente.inserir(cliente1);
         }
 
+        */
 
-        
+
+            List<Cliente> clientes = Cliente.ListarTodos();
+
+            foreach (Cliente cliente in clientes)
+            {
+
+                Console.WriteLine("-------------------------------");
+
+                Console.WriteLine($"ID {cliente.Id}");
+                Console.WriteLine($"Nome {cliente.Nome}");
+                Console.WriteLine($"CPF {cliente.Cpf}");
+                Console.WriteLine($"Telefone {cliente.Telefone}");
+                Console.WriteLine($"Endereço {cliente.Endereco}");
+                Console.WriteLine($"Pontos {cliente.Pontos}");
+
+                Console.WriteLine("-------------------------------");
+            }
+
+
+        }
     }
 }
