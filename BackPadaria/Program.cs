@@ -141,6 +141,7 @@ namespace BackPadaria
             */
 
 
+            /*
             List<Funcionario> funcionarios = Funcionario.ListarTodos();
 
             foreach (Funcionario funcionario in funcionarios)
@@ -155,6 +156,9 @@ namespace BackPadaria
 
                 Console.WriteLine("-------------------------------");
             }
+            */
+
+
 
 
 
