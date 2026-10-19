@@ -131,6 +131,54 @@ namespace BackPadaria.Model
             }
         }
 
+        public static Cliente? ListarPorId(int id)
+        {
+            string sql = "SELECT * FROM `Cliente` WHERE `id` = @id";
+            using (var cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = Banco.executarComRetornoDeDados(cmd);
+                Cliente cliente = null;
+                while (reader.Read())
+                {
+                    // Extrair os dados da linha atual
+                    int idBanco = reader.GetInt32("Id");
+
+                    string nome = validarCampo(reader["Nome"]);
+                    string cpf = validarCampo(reader["CPF"]);
+                    string telefone = validarCampo(reader["Telefone"]);
+                    string endereco = validarCampo(reader["Endereco"]);
+                    int pontos = reader.GetInt32("Pontos");
+                    // Cria o objeto Cliente com os dados extraídos
+                    cliente = new Cliente(idBanco, nome, cpf, telefone, endereco, pontos);
+                }
+                return cliente;
+            }
+        }
+
+        public static int Atualizar(Cliente cliente)
+        {
+            string sql = "UPDATE `Cliente` SET `Nome` = @Nome, `Cpf` = @CPF, `Telefone` = @Telefone, `Endereco` = @Endereco, `Pontos` = @Pontos " +
+                "WHERE `Id` = @Id";
+
+            using (var cmd = new MySqlCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@Nome", cliente.Nome);
+                cmd.Parameters.AddWithValue("@CPF", cliente.Cpf);
+                cmd.Parameters.AddWithValue("@Telefone", cliente.Telefone);
+                cmd.Parameters.AddWithValue("@Endereco", cliente.Endereco);
+                cmd.Parameters.AddWithValue("@Pontos", cliente.Pontos);
+
+
+                // a chave de busca: Quem será atualizado?
+                cmd.Parameters.AddWithValue("@Id", cliente.id);
+
+                return Banco.executarComando(cmd);
+            }
+
+        }
+
+
         private static string validarCampo(object campo)
         {
             if (campo == DBNull.Value || campo == null)

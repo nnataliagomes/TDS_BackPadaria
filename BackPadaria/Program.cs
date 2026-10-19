@@ -33,12 +33,12 @@ namespace BackPadaria
             Cliente.inserir(cliente1);
         }
 
-        */
+        
 
 
-            List<Cliente> clientes = Cliente.ListarTodos();
+            List<Cliente> funcionario = Cliente.ListarTodos();
 
-            foreach (Cliente cliente in clientes)
+            foreach (Cliente cliente in funcionario)
             {
 
                 Console.WriteLine("-------------------------------");
@@ -52,8 +52,113 @@ namespace BackPadaria
 
                 Console.WriteLine("-------------------------------");
             }
+            
+
+            Cliente? cli01 = Cliente.ListarPorId(5);
+
+            if (cli01 != null)
+            {
+                Console.WriteLine($"ID: {cli01.Id}");
+                Console.WriteLine($"Nome:  {cli01.Nome}");
+                Console.WriteLine($"CPF:  {cli01.Cpf}");
+                Console.WriteLine($"Telefone:  {cli01.Telefone}");
+                Console.WriteLine($"Endereço:  {cli01.Endereco}");
+                Console.WriteLine($"Pontos:  {cli01.Pontos}");
+            }
+            else
+            {
+                Console.WriteLine("O cliente não foi encontrado!");
+            }
+            
 
 
+            Cliente? meuCliente = Cliente.ListarPorId(2);
+
+            if (meuCliente != null)
+            {
+                meuCliente.Endereco = "Rua Barão de Alagoas, 171";
+                meuCliente.Telefone = "11978945612";
+
+                int resultado = Cliente.Atualizar(meuCliente);
+                if(resultado > 0 )
+                {
+                    Console.WriteLine("Cliente atualizado com sucesso");
+                }
+               
+
+            }  
+            */
+
+            // A partir daqui é teste funcionario
+
+            /*
+            Console.WriteLine("Digite o nome do funcionário: ");
+            string nomeFuncionario = Console.ReadLine();
+
+            Console.WriteLine("Digite o CPF do funcionário: ");
+            string cpfFuncionario = Console.ReadLine();
+
+            Console.WriteLine("Digite o Cargo do funcionário: ");
+            string cargoFuncionario = Console.ReadLine();
+
+
+            Funcionario func1 = new Funcionario(nome: nomeFuncionario, cpf: cpfFuncionario, cargo: cargoFuncionario);
+
+            Funcionario.inserir(func1);
         }
-    }
-}
+        */
+
+
+            /*
+            Funcionario funcionarioParaDeletar = new Funcionario(4);
+
+            if (Funcionario.Deletar(funcionarioParaDeletar) >= 1)
+            {
+                Console.WriteLine("Funcionário excluído com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("Não foi possível excluir.");
+            }
+            */
+
+
+
+            /*
+            Funcionario? funcionario = Funcionario.ListarPorId(1);
+                if (funcionario != null)
+                {
+                    Console.WriteLine($"ID: {funcionario.Id}");
+                    Console.WriteLine($"Nome:  {funcionario.Nome}");
+                    Console.WriteLine($"CPF:  {funcionario.Cpf}");
+                    Console.WriteLine($"CPF:  {funcionario.Cargo}");
+                }
+                else
+                {
+                    Console.WriteLine("O funcionário não foi encontrado!");
+                }
+            
+            */
+
+
+            List<Funcionario> funcionarios = Funcionario.ListarTodos();
+
+            foreach (Funcionario funcionario in funcionarios)
+            {
+
+                Console.WriteLine("-------------------------------");
+
+                Console.WriteLine($"ID {funcionario.Id}");
+                Console.WriteLine($"Nome {funcionario.Nome}");
+                Console.WriteLine($"CPF {funcionario.Cpf}");
+                Console.WriteLine($"Cargo {funcionario.Cargo}");
+
+                Console.WriteLine("-------------------------------");
+            }
+
+
+
+        } //static void
+    } // internalclass
+} // namespace    
+    
