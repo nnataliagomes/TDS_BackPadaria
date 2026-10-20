@@ -1,4 +1,5 @@
 ﻿using BackPadaria.Model;
+using BackPadaria.Service;
 
 namespace BackPadaria
 {
@@ -158,7 +159,7 @@ namespace BackPadaria
             }
             */
 
-
+            ClienteService.MenuCliente();
 
 
 

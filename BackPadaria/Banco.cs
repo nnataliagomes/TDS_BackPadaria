@@ -10,7 +10,7 @@ namespace BackPadaria;
 
 internal class Banco
 {
-    private static string stringDeConexao = "Server=10.91.45.33;Port=3306;Database=padaria_bd;Uid=admin;Pwd=12345678";// string de conexao é o caminho para conectar com o banco
+    private static string stringDeConexao = "Server=10.91.45.37;Port=3306;Database=padaria_bd;Uid=admin;Pwd=12345678";// string de conexao é o caminho para conectar com o banco
 
     public static void connectAndTest()
     {
@@ -97,7 +97,7 @@ internal class Banco
                 conexao.Open();
                 /* O ExecuteScalar executa o comando e retorna APENAS a primeira coluna da primeira
                  * linha do resultado. É perfeito para pegar um único valor (como um ID recém-gerado).
-                 * Ele retorna um tipo 'object' poruqe não sabe de antemão qual o tipo do dado no banco. */
+                 * Ele retorna um tipo 'object' porque não sabe de antemão qual o tipo do dado no banco. */
 
                 object objRetorno = command.ExecuteScalar();
 
