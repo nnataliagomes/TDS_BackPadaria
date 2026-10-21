@@ -20,8 +20,8 @@ namespace BackPadaria.Service
                 Console.WriteLine("===== GESTÃO DE CLIENTES =====");
 
                 Console.WriteLine("1 - Cadastrar Cliente");
-                Console.WriteLine("2 - Listar Todos os Clientes");
-                Console.WriteLine("3 - Buscar Cliente por ID");
+                Console.WriteLine("2 - Listar Todos os Funcionários");
+                Console.WriteLine("3 - ListarPorId");
                 Console.WriteLine("4 - Atualizar Cliente");
                 Console.WriteLine("5 - Excluir Cliente");
                 Console.WriteLine("6 - Visualizar pontuação");
@@ -40,9 +40,7 @@ namespace BackPadaria.Service
                     switch (opcao)
                     {
                         case "1": // Cadastrar
-
                             cadastrarClienteMenu();
-
                             break;
 
                         case "2": // Listar
@@ -60,6 +58,16 @@ namespace BackPadaria.Service
                         case "5": // deletar
                             deletarClienteMenu();
                             break;
+
+                        case "6": // deletar
+                            visualizarPontosMenu();
+                            break;
+
+                        case "0": // Sair
+                            sair = true;
+                            Console.WriteLine("Tchau");
+                            break;
+
                     }
 
 
@@ -214,25 +222,61 @@ namespace BackPadaria.Service
 
             if (clienteParaDeletar != null)
             {
-                Console.WriteLine($"Tem certeza qe deseja excluir o {clienteParaDeletar.Nome} (s/n)?");
+                Console.WriteLine($"Tem certeza que deseja excluir o {clienteParaDeletar.Nome} (s/n)?");
                 string opcao = Console.ReadLine();
-                
-                if(opcao == "s") 
+
+                if (opcao.ToUpper() == "S")
                 {
                     int clienteDeletado = Cliente.Deletar(clienteParaDeletar);
                     Console.WriteLine("Cliente excluído com sucesso.");
 
                 }
-            else 
+                else if (opcao.ToUpper() == "N")
+                {
+
+                    Console.WriteLine("Cliente não foi excluído.");
+                }
+
+            }
+        } // fim DELETE
+
+
+        private static void visualizarPontosMenu()
+        {
+            Console.WriteLine("----- VISUALIZAR PONTOS DO CLIENTE -----");
+
+            Console.WriteLine("Digite o ID do cliente que deseja visualizar: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int id))
             {
-               (opcao == "n")
-               Console.WriteLine("Cliente não foi excluído.");
+                Console.WriteLine("ID inválido");
+                return;
+                Console.Clear();
             }
 
+            Cliente cliente = Cliente.ListarPorId (id);
 
-        }
+            if (cliente != null)
+            {
+                Console.WriteLine("---------------------");
+                Console.WriteLine($"ID do cliente: {cliente.Id}");
+                Console.WriteLine($"ID do cliente: {cliente.Nome}");
+                Console.WriteLine($"ID do cliente: {cliente.Pontos}");
+                Console.WriteLine("---------------------");
+
+                Console.WriteLine("Pressione alguma tecla para continuar.");
+                Console.ReadKey();
+                Console.Clear();
+
+            }
+            else
+            {
+                Console.WriteLine("Cliente não encontrado");
+            }
+        } // fim visualizar pontos
 
 
+      
 
         }// static class
 }// namespace

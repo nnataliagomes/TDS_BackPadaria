@@ -159,7 +159,10 @@ namespace BackPadaria
             }
             */
 
-            ClienteService.MenuCliente();
+
+            // ClienteService.MenuCliente();
+            FuncionarioService.MenuFuncionario();
+
 
 
 
