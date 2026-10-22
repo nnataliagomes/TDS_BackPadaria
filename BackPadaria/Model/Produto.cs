@@ -112,6 +112,9 @@ namespace BackPadaria.Model
         public static Produto? ListarPorId(int id)
         {
             string sql = "SELECT * FROM `Produto` WHERE `id` = @id";
+
+            Produto? produto = null;
+
             using (var cmd = new MySqlCommand(sql))
             {
                 cmd.Parameters.AddWithValue("@id", id);
@@ -126,9 +129,9 @@ namespace BackPadaria.Model
                     bool fabricado = reader.GetBoolean("Fabricado");
                     int marcaId = reader.GetInt32("MarcaId");
 
-                    Produto produto = new Produto(id, nome, preco, categoria, fabricado, marcaId);
+                    produto = new Produto(id, nome, preco, categoria, fabricado, marcaId);
                 }
-                return Produto.produto;
+                return produto;
             }
         }
 
