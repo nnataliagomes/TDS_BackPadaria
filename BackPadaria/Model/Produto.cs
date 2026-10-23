@@ -17,18 +17,21 @@ namespace BackPadaria.Model
            private int marcaId;
 
 
-        public Produto (int id, string nome, decimal preco, string categoria, bool fabricado, int marcaId)
-        {
+        public Produto (int id, string nome, decimal preco, string categoria, bool fabricado, int marcaId) : this(nome, preco, categoria,
+            fabricado, marcaId)
+
+
+        { if (id <= 0) throw new Exception("O Id do produto não é válido");
             this.id = id;
-            this.nome = nome;
-            this.Preco = preco;
-            this.categoria = categoria;
-            this.fabricado = fabricado;
-            this.marcaId = marcaId;
         }
 
         public Produto(string nome, decimal preco, string categoria, bool fabricado, int marcaId)
         {
+            if (string.IsNullOrEmpty(nome)) throw new Exception("O nome do produto não pode ser vazio");
+            if (preco < 0) throw new Exception("O preco do produto não pode ser negativo");
+            if (string.IsNullOrWhiteSpace(categoria)) throw new Exception("A categoria não pode ser vazia");
+            if (marcaId <= 0) throw new Exception("O Id da Marca deve ser maior que 0");
+
             this.nome = nome;
             this.Preco = preco;
             this.categoria = categoria;

@@ -37,11 +37,11 @@ namespace BackPadaria.Model
 
         public static int Deletar(ProdFabricado prodFabricado)
         {
-            string sql = "DELETE FROM `ProdutoFabricado` WHERE `Id` = @id";
+            string sql = "DELETE FROM `ProdutoFabricado` WHERE `produtoId` = @produtoId";
             using (var cmd = new MySqlCommand(sql))
 
             {
-                cmd.Parameters.AddWithValue("@id", prodFabricado.id);
+                cmd.Parameters.AddWithValue("@produtoID", prodFabricado.produtoID);
                 return Banco.executarComando(cmd);
             }
 

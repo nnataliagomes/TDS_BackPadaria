@@ -11,20 +11,20 @@ namespace BackPadaria.Model
     {
         private int id;
         private string nome;
-        private string telefone;
+        private string descricao;
 
-        public Marca(string nome, string telefone)
+        public Marca(string nome, string descricao)
     {
     if (string.IsNullOrWhiteSpace(nome)) throw new Exception("O nome da marca não pode ser vazio");
         this.nome = nome;
-        this.telefone = telefone;
+        this.descricao = descricao;
     }
 
-    public Marca(int id, string nome, string telefone)
+    public Marca(int id, string nome, string descricao)
     {
         this.id = id;
         this.nome = nome;
-        this.telefone = telefone;
+        this.descricao = descricao;
     }
 
     public Marca(int id)
@@ -34,16 +34,16 @@ namespace BackPadaria.Model
 
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
-        public string Telefone { get => telefone; set => telefone = value; }
+        public string Descricao { get => descricao; set => descricao = value; }
 
     public static int Inserir(Marca marca)
     {
-        string sql = "INSERT INTO `Marca` (Nome, Telefone) VALUES (@Nome, @Telefone)";
+        string sql = "INSERT INTO `Marca` (Nome, descricao) VALUES (@Nome, @Descricao)";
 
         using (var cmd = new MySqlCommand(sql))
     {
         cmd.Parameters.AddWithValue("@Nome", marca.Nome);
-        cmd.Parameters.AddWithValue("@Telefone", marca.Telefone);
+        cmd.Parameters.AddWithValue("@Descricao", marca.descricao);
 
         return Banco.executarComando(cmd);
     }
@@ -76,9 +76,9 @@ namespace BackPadaria.Model
 
         int id = reader.GetInt32("Id");
         string nome = validarCampo(reader["Nome"]);
-        string telefone = validarCampo(reader["Telefone"]);
+        string descricao = validarCampo(reader["Descricao"]);
 
-        Marca marca = new Marca(id, nome, telefone);
+        Marca marca = new Marca(id, nome, descricao);
         listaMarca.Add(marca);
     }
 
@@ -101,8 +101,8 @@ namespace BackPadaria.Model
 
         int idBanco = reader.GetInt32("Id");
         string nome = validarCampo(reader["Nome"]);
-        string telefone = validarCampo(reader["Telefone"]);
-        marca = new Marca(idBanco, nome, telefone);
+        string descricao = validarCampo(reader["Descricao"]);
+        marca = new Marca(idBanco, nome, descricao);
     }
 
         return marca;
@@ -111,11 +111,11 @@ namespace BackPadaria.Model
 
     public static int Atualizar(Marca marca)
     {
-        string sql = @"UPDATE Marca SET Nome = @Nome, Telefone = @Telefone, WHERE Id = @Id";
+        string sql = @"UPDATE Marca SET Nome = @Nome, Descricao = @Descricao, WHERE Id = @Id";
         using (var cmd = new MySqlCommand(sql))
     {
         cmd.Parameters.AddWithValue("@Nome", marca.Nome);
-        cmd.Parameters.AddWithValue("@Telefone", marca.Telefone);
+        cmd.Parameters.AddWithValue("@Descricao", marca.descricao);
         cmd.Parameters.AddWithValue("@Id", marca.id);
 
         return Banco.executarComando(cmd);

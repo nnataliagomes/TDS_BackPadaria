@@ -161,7 +161,7 @@ namespace BackPadaria
 
 
             // ClienteService.MenuCliente();
-            //FuncionarioService.MenuFuncionario();
+            FuncionarioService.MenuFuncionario();
 
 
 
