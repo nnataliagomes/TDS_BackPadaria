@@ -124,7 +124,7 @@ namespace BackPadaria.Service
             int idConsole;
             int.TryParse(Console.ReadLine(), out idConsole);
 
-            Marca? marcaBusca = Marca.listarPorId(idConsole);
+            Marca? marcaBusca = Marca.ListarPorId(idConsole);
 
             if (marcaBusca == null)
             {
@@ -151,7 +151,7 @@ namespace BackPadaria.Service
 
             Console.WriteLine($"----------> {idBusca}");
 
-            Marca? marcaParaAtualizar = Marca.listarPorId(idBusca);
+            Marca? marcaParaAtualizar = Marca.ListarPorId(idBusca);
 
             if (marcaParaAtualizar != null)
             {
@@ -185,7 +185,7 @@ namespace BackPadaria.Service
             int idBusca = 0;
             int.TryParse(Console.ReadLine(), out idBusca);
 
-            Marca? marcaParaExcluir = Marca.listarPorId(idBusca);
+            Marca? marcaParaExcluir = Marca.ListarPorId(idBusca);
 
             if (marcaParaExcluir != null)
             {
@@ -201,5 +201,5 @@ namespace BackPadaria.Service
         }
     }
 }
-    }
-}
+    
+
