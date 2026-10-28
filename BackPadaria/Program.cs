@@ -1,4 +1,6 @@
-﻿using BackPadaria.Model;
+﻿using backPadaria.Model;
+using backPadaria.Service;
+using BackPadaria.Model;
 using BackPadaria.Service;
 
 namespace BackPadaria
@@ -161,7 +163,12 @@ namespace BackPadaria
 
 
             // ClienteService.MenuCliente();
-            FuncionarioService.MenuFuncionario();
+            //FuncionarioService.MenuFuncionario();
+            //VendaService.MenuVendas();
+            LoginFuncionario login = new LoginFuncionario(2, "jp_padoca@padaria.com.br", "doumaooito", "Diretor");
+            LoginFuncionario.Inserir(login);
+
+            LoginService.FazerLoginMenu();
 
 
 

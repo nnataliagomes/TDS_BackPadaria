@@ -15,20 +15,25 @@ namespace BackPadaria.Model
         private int clienteId;
         private List<ItemCompra> itens = new List<ItemCompra>();
 
+        public int Id { get => id; set => id = value; }
+        public DateTime DataHora { get => dataHora; set => dataHora = value; }
+        public int FuncionarioId { get => funcionarioId; set => funcionarioId = value; }
+        public int ClienteId { get => clienteId; set => clienteId = value; }
+
         public Compra(DateTime dataHora, int funcionarioId, int clienteId)
         {
             if (funcionarioId <= 0) throw new ArgumentOutOfRangeException("O funcionário responsável é inválido");
 
 
-            this.dataHora = dataHora;
-            this.funcionarioId = funcionarioId;
-            this.clienteId = clienteId;
+            this.DataHora = dataHora;
+            this.FuncionarioId = funcionarioId;
+            this.ClienteId = clienteId;
         }
 
         public Compra(int id, DateTime dataHora, int funcionarioId, int clienteId) : this(dataHora, funcionarioId, clienteId)
         {
             if (id <= 0) throw new ArgumentOutOfRangeException("O Id da compra é inválido");
-            this.id = id;
+            this.Id = id;
         }
 
         public decimal CalcularTotal()
@@ -57,15 +62,15 @@ namespace BackPadaria.Model
         {
             using (var cmd = new MySqlCommand("sp_InserirCompra"))
             {          
-                cmd.Parameters.AddWithValue("p_dataHora", compra.dataHora);
-                cmd.Parameters.AddWithValue("p_FuncionarioId", compra.dataHora);
-                cmd.Parameters.AddWithValue("p_ClienteId", compra.dataHora);
+                cmd.Parameters.AddWithValue("p_dataHora", compra.DataHora);
+                cmd.Parameters.AddWithValue("p_FuncionarioId", compra.DataHora);
+                cmd.Parameters.AddWithValue("p_ClienteId", compra.DataHora);
 
                 object resultado = Banco.executarComandoComRetornoId(cmd);
 
                 if(resultado != null && int.TryParse(resultado.ToString(), out int idGerado))
                 {
-                    Compra.Id = idGerado;
+                    compra.id = idGerado;
                     return idGerado;
                 }
             }   return -1;
