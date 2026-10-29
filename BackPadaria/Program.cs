@@ -164,12 +164,11 @@ namespace BackPadaria
 
             // ClienteService.MenuCliente();
             //FuncionarioService.MenuFuncionario();
-            //VendaService.MenuVendas();
-            LoginFuncionario login = new LoginFuncionario(2, "jp_padoca@padaria.com.br", "doumaooito", "Diretor");
-            LoginFuncionario.Inserir(login);
-
-            LoginService.FazerLoginMenu();
-
+            VendaService.MenuVendas();
+            /*LoginFuncionario login = new LoginFuncionario(5, "luis@padaria.com.br", "senha", "Diretor");
+            LoginFuncionario.Inserir(login);*/
+            //LoginService.FazerLoginMenu();
+            
 
 
 

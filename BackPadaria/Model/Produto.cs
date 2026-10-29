@@ -127,12 +127,12 @@ namespace BackPadaria.Model
                 {
                     int Id = reader.GetInt32("Id");
                     string nome = validarCampo(reader["Nome"]);
-                    decimal preco = reader.GetDecimal("Preço");
+                    decimal Preco = reader.GetDecimal("Preco");
                     string categoria = validarCampo(reader["Categoria"]);
                     bool fabricado = reader.GetBoolean("Fabricado");
                     int marcaId = reader.GetInt32("MarcaId");
 
-                    produto = new Produto(id, nome, preco, categoria, fabricado, marcaId);
+                    produto = new Produto(id, nome, Preco, categoria, fabricado, marcaId);
                 }
                 return produto;
             }

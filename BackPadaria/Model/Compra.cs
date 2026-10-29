@@ -19,6 +19,7 @@ namespace BackPadaria.Model
         public DateTime DataHora { get => dataHora; set => dataHora = value; }
         public int FuncionarioId { get => funcionarioId; set => funcionarioId = value; }
         public int ClienteId { get => clienteId; set => clienteId = value; }
+        internal List<ItemCompra> Itens { get => itens; set => itens = value; }
 
         public Compra(DateTime dataHora, int funcionarioId, int clienteId)
         {
@@ -43,19 +44,19 @@ namespace BackPadaria.Model
             //{ return 
             //}
 
-            return itens.Sum(item => item.CalcularSubtotal()); 
+            return Itens.Sum(item => item.CalcularSubtotal()); 
         }
 
         public void AdicionarItem(Produto produto, int quantidade)
         {
             if (produto == null) throw new Exception("Produto inexistente");
             ItemCompra novoItem = new ItemCompra(produto.Id, quantidade, produto.Preco1);
-            this.itens.Add(novoItem);
+            this.Itens.Add(novoItem);
         }
 
         public void RemoverItem(ItemCompra item)
         {
-            this.itens.Remove(item);
+            this.Itens.Remove(item);
         }
 
         public static int Inserir(Compra compra)
